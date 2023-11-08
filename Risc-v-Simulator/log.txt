@@ -1,0 +1,2 @@
+7/11/2023, from 9 till 11:52 John: created and, or, andi, ori logical functions + reading instructions from file one by one but reads all instructions in assembly and converts into c++ + flow of the functions using maps
+8/11/2023, from 6:20 till 8:20 John: created xor, xori, jal, jalr, sll, slli, srl, srli logical functions 
