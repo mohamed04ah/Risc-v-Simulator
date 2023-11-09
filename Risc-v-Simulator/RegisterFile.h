@@ -23,7 +23,7 @@ public:
 	RegisterFile(const RegisterFile&) = delete;
 	static string read(string r1) { return getinstance().Iread(r1); }
 	static read_reg read(string r1, string r2) { return getinstance().Iread(r1, r2); }
-	static bool write(string rd, int value) { return getinstance().Iwrite(rd, value); }
+	static bool write(string rd, string value) { return getinstance().Iwrite(rd, value); }
 	static void print_RF() { getinstance().Iprint_RF(); }
 private:
 	RegisterFile();
@@ -31,7 +31,7 @@ private:
 	bool validate(string rd);
 	string Iread(string r1);
 	read_reg Iread(string r1, string r2);
-	bool Iwrite(string rd, int value);
+	bool Iwrite(string rd, string value);
 	void create_RF();
 	void Iprint_RF();
 

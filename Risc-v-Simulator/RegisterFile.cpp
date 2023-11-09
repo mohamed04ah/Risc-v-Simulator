@@ -67,12 +67,12 @@ read_reg RegisterFile::Iread(string r1, string r2)
 
 }
 
-bool RegisterFile::Iwrite(string rd, int value)
+bool RegisterFile::Iwrite(string rd, string value)
 {
 	bool validated = validate(rd);
 	if (validated)
 	{
-		registers[rd] = bitset<32>(value).to_string();
+		registers[rd] = value;
 		return true;
 	}
 	cout << endl << "invalid Write." << endl;
