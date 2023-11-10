@@ -127,10 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LS_instructions.h" />
+    <ClInclude Include="Memory.h" />
     <ClInclude Include="RegisterFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LS_instructions.cpp" />
     <ClCompile Include="main..cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="RegisterFile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
