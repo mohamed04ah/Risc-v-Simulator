@@ -7,14 +7,20 @@ Memory& Memory::getinstance()
 	return Mem;
 } 
 
-bool Memory::program_loc(string initial_loc, string inst)
+bool Memory::program_loc(string initial_loc, vector<string>instructions)
 {
-	if (counter == 0)
-		Initial_loc = initial_loc;
-		memory[stoi(initial_loc)] = inst;
-	
+		
+		int temp = stoi(initial_loc);
+		for (int i = 0; i < instructions.size(); i++)
+		{
+			memory[temp] = instructions[i];
+			temp++;
+		}
+
+		instruction_bounds.push_back(initial_loc);
+		instruction_bounds.push_back(to_string(temp));
 		counter = 1;
-		no_inst++;
+	
 		return true;
 }
 
@@ -23,26 +29,37 @@ bool Memory::Iwrite(string address, vector<string> values)
 
 	int temp = stoi(address);
 	
-	if (counter == 1)
+	if (counter == 1 && (temp>stoi(instruction_bounds[1] )|| temp< stoi(instruction_bounds[0]) ) )
 	{
-		//&& (temp > (stoi(Initial_loc) + no_inst))
+		
 		for (int i = 0; i < values.size(); i++)
 		{
-			memory[temp] = values[i];
+			memory[temp] = bitset<32>(stoi(values[i])).to_string();
 			temp++;
 		}
-
+		return true;
 	}
-
+	else {
+		cout << "Invalid write location!" << endl;
+	}
 	
-	return true;
+	return false; 
 }
 
 bool Memory::Iwrite(string address, string value)
 {
 	int temp = stoi(address);
-	memory[temp] = value;
-	return true;
+	if (counter == 1 && (temp > stoi(instruction_bounds[1]) || temp < stoi(instruction_bounds[0])))
+	{
+		int temp = stoi(address);
+		memory[temp] = bitset<32>(stoi(value)).to_string();
+		return true;
+	}
+	else {
+		cout << "Invalid write location!" << endl;
+	}
+
+	return false;
 }
 
 string Memory::Iread(string address)

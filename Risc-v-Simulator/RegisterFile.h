@@ -35,6 +35,7 @@ private:
 	void create_RF();
 	void Iprint_RF();
 	int bin_decimal(string value);
+	
 
 
 };

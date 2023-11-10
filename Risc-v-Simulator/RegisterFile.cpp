@@ -70,13 +70,16 @@ read_reg RegisterFile::Iread(string r1, string r2)
 bool RegisterFile::Iwrite(string rd, string value)
 {
 	bool validated = validate(rd);
-	if (validated)
-	{
-		registers[rd] = bitset<32>(stoi(value)).to_string();
-		return true;
-	}
-	cout << endl << "invalid Write." << endl;
-	return false;
+
+		if (validated)
+		{
+			registers[rd] = bitset<32>(stoi(value)).to_string();
+			return true;
+		}
+		cout << endl << "invalid Write." << endl;
+		return false;
+
+
 }
 
 void RegisterFile::create_RF()
@@ -129,4 +132,6 @@ int RegisterFile::bin_decimal(string value)
 	}
 	return result;
 }
+
+
 
