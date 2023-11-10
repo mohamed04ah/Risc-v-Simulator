@@ -1,27 +1,44 @@
+#include "RegisterFile.h"
 #include<iostream>
 #include <fstream>
-#include<string>
 #include<vector>
 #include <sstream>
 #include <map>
+
 using namespace std;
+
+int Bintoint(string binary) {
+    int ind = 1;
+    int res = 0;
+    for (int i = binary.length(); i >= 0; i--) {
+        res += (int)binary[i] * ind;
+        ind *= 2;
+    }
+    return res;
+}
+
 int And_func(int r1, int r2)
 {
     int result = r1 & r2;
     return result;
 }
+
 int or_func(int r1, int r2)
 {
     int result = r1 | r2;
     return result;
 }
+
 unsigned int shiftLeft_func(unsigned int value, int shift) {
     return value << shift;
 }
+
 unsigned int shiftright_func(unsigned int value, int shift) {
     return value >> shift;
 }
+
 void jal_func(map<string, string>& myMap, const vector<string>& com) {
+
     try {
         if (stoul(myMap[com[2]]) < stoul(com[3])) {
             myMap[com[1]] = "1";
@@ -31,12 +48,72 @@ void jal_func(map<string, string>& myMap, const vector<string>& com) {
         }
         cout << myMap[com[1]];
     }
+
     catch (const std::invalid_argument& ia) {
         cerr << "Invalid argument: " << ia.what() << '\n';
     }
+
     catch (const std::out_of_range& oor) {
         cerr << "Out of Range error: " << oor.what() << '\n';
     }
+}
+
+void add(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    res = x1 + x2;
+    RegisterFile::write(dest, res);
+}
+
+void sub(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    res = x1 - x2;
+    RegisterFile::write(dest, res);
+}
+
+void slt(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    if (x1 < x2) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void slti(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1));
+    if (x1 < stoi(r2)) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void sltu(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    if (x1 < x2) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void sltiu(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1));
+    if (x1 < stoi(r2)) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void jal() {
+    
+}
+
+void sra(string dest, string r1, string r2) {
+    signed int x1 = stoi(RegisterFile::read(r1)), x2 = stoi(RegisterFile::read(r2));
+    int r = x1 >> (x2 & 0b11111);
+    RegisterFile::write(dest, Bintoint(to_string(r)));
+}
+
+void srai(string dest, string r1, string r2) {
+    signed int x1 = stoi(RegisterFile::read(r1));
+    int r = x1 >> stoi(r2);
+    RegisterFile::write(dest, Bintoint(to_string(r)));
 }
 
 int main() {
@@ -60,94 +137,119 @@ int main() {
     myMap["x25"] = "0";
     myMap["x26"] = "0";
     myMap["x27"] = "0";
+
     vector<string>com;
     string filename = "example.txt";
     ifstream inputFile(filename);//open file
+
     if (inputFile.is_open()) {
         string line;
         string element;
         while (getline(inputFile, line)) {//get line by line
-            stringstream ss(line); 
+            stringstream ss(line);
             com.clear();
             while (ss >> element) { // Read each element
-               element= element.substr(0, element.find(","));
+                element = element.substr(0, element.find(","));
                 com.push_back(element); // Add the element to the vector
             }// all of the functions in assembly
-            if (com[0] == "li") 
+
+            if (com[0] == "li")
             {
                 myMap[com[1]] = com[2];
             }
+
             if (com[0] == "addi")
             {
-                myMap[com[1]] =to_string(stoi(myMap[com[2]]) + stoi(com[3]));
+                myMap[com[1]] = to_string(stoi(myMap[com[2]]) + stoi(com[3]));
                 //cout << myMap[com[1]];
             }
+
             if (com[0] == "and")
             {
-             
-                int result = And_func(stoi(myMap[com[2]]),stoi(myMap[com[3]]));
+
+                int result = And_func(stoi(myMap[com[2]]), stoi(myMap[com[3]]));
                 myMap[com[1]] = to_string(result);
                 //cout << myMap[com[1]];
             }
+
             if (com[0] == "or")
             {
 
                 int result = or_func(stoi(myMap[com[2]]), stoi(myMap[com[3]]));
                 myMap[com[1]] = to_string(result);
-               //cout << myMap[com[1]]<<endl;
-            }
-            if (com[0] == "andi")
-            { 
-                myMap[com[1]] = to_string(stoi(myMap[com[2]]) & stoi(com[3])); 
                 //cout << myMap[com[1]]<<endl;
             }
+
+            if (com[0] == "andi")
+            {
+                myMap[com[1]] = to_string(stoi(myMap[com[2]]) & stoi(com[3]));
+                //cout << myMap[com[1]]<<endl;
+            }
+
             if (com[0] == "ori")
             {
                 myMap[com[1]] = to_string(stoi(myMap[com[2]]) | stoi(com[3]));
                 //cout << myMap[com[1]]<<endl;
             }
+
             if (com[0] == "xor")
             {
                 myMap[com[1]] = to_string(stoi(myMap[com[2]]) ^ stoi(myMap[com[3]]));
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "xori")
             {
                 myMap[com[1]] = to_string(stoi(myMap[com[2]]) ^ stoi(com[3]));
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "sll")
             {
                 int result = shiftLeft_func(stoi(myMap[com[2]]), stoi(myMap[com[3]]));
                 myMap[com[1]] = to_string(result);
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "slli")
             {
                 myMap[com[1]] = to_string(stoi(myMap[com[2]]) << stoi(com[3]));
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "srl")
             {
                 int result = shiftright_func(stoi(myMap[com[2]]), stoi(myMap[com[3]]));
                 myMap[com[1]] = to_string(result);
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "srli")
             {
                 myMap[com[1]] = to_string(stoi(myMap[com[2]]) >> stoi(com[3]));
                 cout << myMap[com[1]];
             }
+
             if (com[0] == "jal")
             {
                 jal_func(myMap, com);
 
             }
+
             if (com[0] == "jalr")
             {
                 jal_func(myMap, com);
             }
+
+            if (com[0] == "add") {
+                add(com[1], com[2], com[3]);
+            }
+
+            if (com[0] == "sub") {
+                add(com[1], com[2], com[3]);
+            }
         }
+
         inputFile.close();
     }
     else {
