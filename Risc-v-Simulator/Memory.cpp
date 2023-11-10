@@ -5,7 +5,7 @@ Memory& Memory::getinstance()
 	static Memory Mem; 
 	
 	return Mem;
-}
+} 
 
 bool Memory::program_loc(string initial_loc, string inst)
 {
@@ -38,6 +38,13 @@ bool Memory::Iwrite(string address, vector<string> values)
 	return true;
 }
 
+bool Memory::Iwrite(string address, string value)
+{
+	int temp = stoi(address);
+	memory[temp] = value;
+	return true;
+}
+
 string Memory::Iread(string address)
 {
 	auto it=memory.find(stoi(address));
@@ -52,10 +59,12 @@ string Memory::Iread(string address)
 	return"";
 }
 
-void Memory::print_memory()
+void Memory::Iprint_memory()
 {
 	for (auto& it : memory)
 	{
 		cout << it.first << "|" << it.second << endl;
 	}
 }
+
+

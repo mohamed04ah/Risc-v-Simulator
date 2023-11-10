@@ -72,7 +72,7 @@ bool RegisterFile::Iwrite(string rd, string value)
 	bool validated = validate(rd);
 	if (validated)
 	{
-		registers[rd] = value;
+		registers[rd] = bitset<32>(stoi(value)).to_string();
 		return true;
 	}
 	cout << endl << "invalid Write." << endl;
@@ -107,15 +107,26 @@ void RegisterFile::create_RF()
 	}
 
 
-
-
-
 }
 
 void RegisterFile::Iprint_RF()
 {
 	for (auto& it : registers) {
-		cout << it.first << "|" << setw(3) << it.second << endl;
+		cout << it.first << "|" << setw(3) << it.second << "(" << bin_decimal(it.second) << ")" << endl;
 	}
+}
+
+int RegisterFile::bin_decimal(string value)
+{
+	int result = 0;
+
+	for (int i = value.size(); i>=0; i--) {
+		if (value[i] == '1') {
+		
+			result += pow(2, value.size() - i - 1);
+				
+		}
+	}
+	return result;
 }
 
