@@ -20,10 +20,12 @@ public:
 	static void print_memory() {
 		getinstance().Iprint_memory();
 	}
+	vector<string>read_instruction(string adress);
 private: 
-	
+	string Initial_loc;
 	int counter = 0; 
 	map<int, string> memory;
+	map<string, string>label_map;
 	vector<string> instruction_bounds;
 	Memory() {};
 	Memory(const Memory&) = delete;
@@ -31,6 +33,8 @@ private:
 	bool Iwrite(string address, string value);
 	string Iread(string address);
 	void Iprint_memory();
+	
+
 
 	
 	

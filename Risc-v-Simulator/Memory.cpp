@@ -9,6 +9,7 @@ Memory& Memory::getinstance()
 
 bool Memory::program_loc(string initial_loc, vector<string>instructions)
 {
+	Initial_loc = initial_loc;
 		
 		int temp = stoi(initial_loc);
 		for (int i = 0; i < instructions.size(); i++)
@@ -22,6 +23,13 @@ bool Memory::program_loc(string initial_loc, vector<string>instructions)
 		counter = 1;
 	
 		return true;
+}
+
+vector<string> Memory::read_instruction(string adress)
+{
+	string temp = memory[stoi(adress)];
+
+
 }
 
 bool Memory::Iwrite(string address, vector<string> values)

@@ -3,6 +3,7 @@
 #include<iostream>
 #include"RegisterFile.h"
 #include"Memory.h"
+#include "read.h"
 using namespace std;
 class LS_instructions
 {

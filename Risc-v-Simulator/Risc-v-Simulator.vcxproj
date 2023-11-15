@@ -129,13 +129,18 @@
   <ItemGroup>
     <ClInclude Include="LS_instructions.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="read.h" />
     <ClInclude Include="RegisterFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LS_instructions.cpp" />
     <ClCompile Include="main..cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="read.cpp" />
     <ClCompile Include="RegisterFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

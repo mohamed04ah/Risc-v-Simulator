@@ -25,12 +25,14 @@
 int main() {
 
 	
-	vector<string> test = { "string1","string2","19" };
-	RegisterFile::write("a0", "13");
-	Memory& mem = Memory::getinstance();
-    mem.program_loc("4000", test);
+	//vector<string> test = { "string1","string2","19" };
+	//RegisterFile::write("a0", "13");
+	//Memory& mem = Memory::getinstance();
+ //   mem.program_loc("4000", test);
+	//Memory::print_memory();
+
+	read r;
+	r.read_instructions();
+	cout << "===============" << endl;
 	Memory::print_memory();
-
-
-
 }
