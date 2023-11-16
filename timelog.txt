@@ -2,3 +2,6 @@ Mohamed: november 6 7pm: created RegisterFile class basic functionality (Read)
 Mohamed: november 7 2pm: added the print,create,write, validate funcitonalities to the RegisterFile class. carried out small test to insure functionality 
 Mohamed: november 9 4pm: created the "Memory class" implemented read and write functionality, alongside print functionality to display memory elements.  Implemented SW, LW  instructions. 
 Mohamed: novermber 10 9:39 pm: implemented function to store user instructions in the memory, validated requests to write to memory before operation is done. 
+Mohamed:november 12 11:14-m: Added lh,lhu,lb,lbu,sb,sh instructions. Added 2 write functions to the memory and register file class to accommodate the implemented instructions mentioned.  carried out small test cases to ensure functionality. 
+
+
