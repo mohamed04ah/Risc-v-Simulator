@@ -82,6 +82,20 @@ bool RegisterFile::Iwrite(string rd, string value)
 
 }
 
+bool RegisterFile::Iwrite1(string rd, string value)
+{
+	bool validated = validate(rd);
+	
+	if (validated)
+	{
+		registers[rd] = value;
+		return true;
+	}
+	cout << endl << "invalid Write." << endl;
+	return false;
+
+}
+
 void RegisterFile::create_RF()
 {
 

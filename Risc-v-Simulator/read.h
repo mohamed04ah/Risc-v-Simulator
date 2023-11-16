@@ -8,8 +8,6 @@ using namespace std;
 class read
 {
 public: 
-
-	read() {};
 	void read_instructions();
 private: 
 

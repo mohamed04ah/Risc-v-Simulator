@@ -1,38 +1,24 @@
 
 #include"Ls_instructions.h"
 
-
- string two_comp(string value)
-{
-
-	string temp = "";
-
-	for (int i = value.size(); i >= 1; i--)
-	{
-		if (value[i] == '1') {
-			temp += '0';
-		}
-
-	}
-
-	reverse(temp.begin(), temp.end());
-
-	temp[temp.size() - 1] = '1';
-	return temp;
-
-}
-
 int main() {
 
-	
-	//vector<string> test = { "string1","string2","19" };
-	//RegisterFile::write("a0", "13");
-	//Memory& mem = Memory::getinstance();
- //   mem.program_loc("4000", test);
-	//Memory::print_memory();
 
-	read r;
-	r.read_instructions();
-	cout << "===============" << endl;
-	Memory::print_memory();
+	Memory& mem = Memory::getinstance();
+	vector<string> inst = { "1","2","3","4" };
+	Memory::getinstance().program_loc("5200", inst);
+	LS_instructions x;
+	RegisterFile::write("t4", "7220");
+	Memory::write("7200", "-276");
+	cout << Memory::read("7200") << endl;
+
+	x.loadb("t5", "-20", "t4");
+	
+   cout << RegisterFile::read("t5");
+
+
+
+	
+
+	
 }

@@ -15,7 +15,7 @@ bool Memory::program_loc(string initial_loc, vector<string>instructions)
 		for (int i = 0; i < instructions.size(); i++)
 		{
 			memory[temp] = instructions[i];
-			temp++;
+			temp += 4;
 		}
 
 		instruction_bounds.push_back(initial_loc);
@@ -25,12 +25,7 @@ bool Memory::program_loc(string initial_loc, vector<string>instructions)
 		return true;
 }
 
-vector<string> Memory::read_instruction(string adress)
-{
-	string temp = memory[stoi(adress)];
 
-
-}
 
 bool Memory::Iwrite(string address, vector<string> values)
 {
@@ -61,6 +56,22 @@ bool Memory::Iwrite(string address, string value)
 	{
 		int temp = stoi(address);
 		memory[temp] = bitset<32>(stoi(value)).to_string();
+		return true;
+	}
+	else {
+		cout << "Invalid write location!" << endl;
+	}
+
+	return false;
+}
+
+bool Memory::Iwrite1(string address, string value)
+{
+	int temp = stoi(address);
+	if (counter == 1 && (temp > stoi(instruction_bounds[1]) || temp < stoi(instruction_bounds[0])))
+	{
+		int temp = stoi(address);
+		memory[temp] = value;
 		return true;
 	}
 	else {
