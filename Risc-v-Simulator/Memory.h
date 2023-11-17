@@ -9,7 +9,7 @@ using namespace std;
 
 class Memory
 {
-	// leaves the string as it is. 
+	
 public: 
 	static  Memory& getinstance(); // returns an instance of the current memory 
 	bool program_loc(string initial_loc,vector<string>intstructions);
