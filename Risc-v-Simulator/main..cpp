@@ -12,7 +12,7 @@ int main() {
 	Memory::write("7200", "-276");
 	cout << Memory::read("7200") << endl;
 
-	x.loadb("t5", "-20", "t4");
+	x.loadhw("t5", "-20", "t4");
 	
    cout << RegisterFile::read("t5");
 

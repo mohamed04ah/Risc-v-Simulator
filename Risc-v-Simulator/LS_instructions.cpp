@@ -255,3 +255,64 @@ bool LS_instructions::storeB(string rs1, string offset, string rs2)
 
 
 }
+
+bool LS_instructions::storehw(string rs1, string offset, string rs2)
+{
+
+	read_reg R;
+	R = RegisterFile::read(rs1, rs2);
+	string source = R.r1;
+	int sign = R.r1[0] == '1' ? 1 : 0;
+	string address = R.r2;
+	int location = stoi(offset) + Bintoint(address);
+	string store = "";
+	string temp = "";
+	for (int i = 31; i > 15; i--)
+	{
+		store += source[i];
+
+	}
+
+	reverse(store.begin(), store.end());
+	string t1 = "";
+	if (sign)
+	{
+
+		for (int i = 0; i < 16; i++)
+		{
+			t1 += '1';
+
+		}
+
+	}
+	else
+	{
+
+		for (int i = 0; i < 16; i++)
+		{
+			t1 += '0';
+
+		}
+
+	}
+
+	t1 += store;
+
+	if (Memory::write(to_string(location), t1));
+
+
+}
+
+bool LS_instructions::load_ui(string rd, string imm)
+{
+	string store= bitset<20>(stoi(imm)).to_string();
+	
+	for (int i = 0; i < 12; i++)
+	{
+		store += '0';
+	}
+	if (RegisterFile::write1(rd, store))
+		return true; 
+
+	return false; 
+}

@@ -2,6 +2,7 @@
 #include<string>
 #include<iostream>
 #include<algorithm>
+#include<bitset>
 #include"RegisterFile.h"
 #include"Memory.h"
 #include "read.h"
@@ -19,6 +20,7 @@ public:
 	bool loadb_u(string rd, string offset, string base_reg);
 	bool storeB(string rs1, string offset, string rs2);
 	bool storehw(string rs1, string offset, string rs2);
+	bool load_ui(string rd, string imm);
 
 
 private: 
