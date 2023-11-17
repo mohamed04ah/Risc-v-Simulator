@@ -382,3 +382,11 @@ void jal_func(string dest, string offset)
     RegisterFile::write(dest, nextInstruction);
     programCounter += offsetInt;
 }
+void jalr_func(string dest, string r1, string offset)
+{
+    int offsetInt = Bintoint(offset);
+    int x1 = Bintoint(RegisterFile::read(r1));
+    string nextInstruction = to_string(programCounter + 4);
+    RegisterFile::write(dest, nextInstruction);
+    programCounter = x1 + offsetInt;
+}
