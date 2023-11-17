@@ -6,9 +6,8 @@ int main() {
 
 
 	read r; 
-	r.read_instructions();
-	r.identify_inst(4329);
-
+	Memory::print_memory();
+	Memory::print_lables();
 	
 	
 	

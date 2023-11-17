@@ -8,6 +8,7 @@ using namespace std;
 class read
 {
 public: 
+	read();
 	void read_instructions();
 	bool find_col(string s);
 	void identify_inst(int pc);

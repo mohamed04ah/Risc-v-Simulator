@@ -22,6 +22,7 @@ public:
 	}
 	static void label_set(string label, string address) { getinstance().label_map[label] = address; }
 	static void print_lables() { getinstance().Iprint_labels(); }
+	static string read_label(string address) { return getinstance().label_map[address]; }
 private: 
 	string Initial_loc;
 	int counter = 0; 
