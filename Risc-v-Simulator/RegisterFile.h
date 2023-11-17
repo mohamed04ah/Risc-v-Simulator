@@ -26,6 +26,8 @@ public:
 	static bool write(string rd, string value) { return getinstance().Iwrite(rd, value); }
 	static bool write1(string rd, string value) { return getinstance().Iwrite1(rd, value); }
 	static void print_RF() { getinstance().Iprint_RF(); }
+	static void delete_rf() { getinstance().Idelete_rf(); }
+
 private:
 	RegisterFile();
 	map<string, string> registers;
@@ -37,6 +39,7 @@ private:
 	void create_RF();
 	void Iprint_RF();
 	int bin_decimal(string value);
+	void Idelete_rf();
 	
 
 

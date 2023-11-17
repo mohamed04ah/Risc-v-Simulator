@@ -21,6 +21,9 @@ public:
 	bool storeB(string rs1, string offset, string rs2);
 	bool storehw(string rs1, string offset, string rs2);
 	bool load_ui(string rd, string imm);
+	bool fence();
+	bool ecall();
+	bool ebreak();
 
 
 private: 

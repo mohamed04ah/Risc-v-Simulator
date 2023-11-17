@@ -125,26 +125,81 @@ void RegisterFile::create_RF()
 
 
 }
+string decimal_hexa(string value)
+{
 
+
+	int val = stoi(value);
+	if (val == 0) {
+		return "0";
+	}
+
+	string result = "";
+	int i = 0;
+	while (val > 0) {
+		int mod = val % 16;
+		char c;
+		c = mod < 10 ? mod + 48 : mod + 55;
+		result += c;
+		val = val / 16;
+	}
+	int size = result.size() - 1;
+	while (i < size)
+	{
+		swap(result[i], result[size]);
+		i++;
+		size--;
+	}
+
+	return result;
+}
 void RegisterFile::Iprint_RF()
 {
+	cout << "BINARY|DECIMAL|HEXADECIMAL" << endl;
 	for (auto& it : registers) {
-		cout << it.first << "|" << setw(3) << it.second << "(" << bin_decimal(it.second) << ")" << endl;
+		int val = bin_decimal(it.second);
+		cout << it.first << "|" << setw(3) << it.second << "(" << val << ")" << "(" << decimal_hexa(to_string(val)) << ")" << endl;
 	}
 }
 
 int RegisterFile::bin_decimal(string value)
 {
-	int result = 0;
-
-	for (int i = value.size(); i>=0; i--) {
-		if (value[i] == '1') {
-		
-			result += pow(2, value.size() - i - 1);
-				
-		}
+	
+	if (value[0] == '1')
+	{
+		int r1;
+	   r1 = bitset<32>(value).to_ullong();
+	
+		r1 = -((1 << value.length()) - r1);
+		return r1+1;
 	}
-	return result;
+	else 
+	{
+		int result = 0;
+		for (int i = value.size(); i >= 0; i--)
+		{
+			if (value[i] == '1') {
+
+				result += pow(2, value.size() - i - 1);
+
+			}
+		}
+		return result;
+	}
+
+	return 0;
+}
+
+
+
+void RegisterFile::Idelete_rf()
+{
+	
+	for (auto &it : registers) 
+	{
+		it.second= bitset<32>(0).to_string();
+	}
+
 }
 
 

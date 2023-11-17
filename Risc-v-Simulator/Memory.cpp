@@ -81,6 +81,14 @@ bool Memory::Iwrite1(string address, string value)
 	return false;
 }
 
+void Memory::Iprint_labels()
+{
+	for (auto& it : label_map)
+	{
+		cout << it.first << "|" << it.second << endl;
+	}
+}
+
 string Memory::Iread(string address)
 {
 	auto it=memory.find(stoi(address));

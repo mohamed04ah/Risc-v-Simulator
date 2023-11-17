@@ -29,7 +29,7 @@ bool LS_instructions::Loadw(string rd, string offset, string base_reg)
 
 
 	
-	if (RegisterFile::write(rd, to_string(Bintoint(data))))
+	if (RegisterFile::write1(rd, data))
 	{
 		
 		return true;
@@ -45,7 +45,7 @@ bool LS_instructions::storew(string rs1, string offset, string rs2)
 	string address = R.r2;
 	int location = stoi(offset) + Bintoint(address);
 
-	if (Memory::write(to_string(location), to_string(Bintoint(R.r1))))
+	if (Memory::write1(to_string(location), R.r1))
 		return true;
 	return false; 
 }
@@ -226,6 +226,7 @@ bool LS_instructions::storeB(string rs1, string offset, string rs2)
 	}
 
 	reverse(store.begin(), store.end());
+
 	string t1 = "";
 	if (sign)
 	{
@@ -250,7 +251,9 @@ bool LS_instructions::storeB(string rs1, string offset, string rs2)
 
 	t1 += store;
 
-	if (Memory::write(to_string(location), t1));
+	if (Memory::write1(to_string(location), t1))
+		return true;
+	return false;
 
 
 
@@ -298,7 +301,9 @@ bool LS_instructions::storehw(string rs1, string offset, string rs2)
 
 	t1 += store;
 
-	if (Memory::write(to_string(location), t1));
+	if (Memory::write1(to_string(location), t1))
+		return true;
+	return false; 
 
 
 }
@@ -315,4 +320,20 @@ bool LS_instructions::load_ui(string rd, string imm)
 		return true; 
 
 	return false; 
+}
+
+bool LS_instructions::fence()
+{
+	return true; 
+	
+}
+
+bool LS_instructions::ecall()
+{
+	return false;
+}
+
+bool LS_instructions::ebreak()
+{
+	return false;
 }

@@ -20,7 +20,8 @@ public:
 	static void print_memory() {
 		getinstance().Iprint_memory();
 	}
-
+	static void label_set(string label, string address) { getinstance().label_map[label] = address; }
+	static void print_lables() { getinstance().Iprint_labels(); }
 private: 
 	string Initial_loc;
 	int counter = 0; 
@@ -34,6 +35,7 @@ private:
 	bool Iwrite1(string address, string value);
 	string Iread(string address);
 	void Iprint_memory();
+	void Iprint_labels();
 	
 
 
