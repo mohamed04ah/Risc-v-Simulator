@@ -17,5 +17,5 @@ public:
 	int commaNum(string s);
 	bool col(string s);
 	void RemoveSpaces(string& s, string& instruction);
-	void dividel(string s);
+	void dividel(string& s, string& inst, string& dest, string& rs1, string& rs2);
 };
