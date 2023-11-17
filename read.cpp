@@ -116,7 +116,6 @@ void read::dividel(string& s, string& inst, string& dest, string& rs1, string& r
 	RemoveSpaces(s, inst);
 	int comnum = commaNum(s);
 	bool colb = col(s);
-
 	if (colb) {
 		string loop = s.substr(0, s.find(':'));
 		s = s.substr(s.find(':') + 1, s.length() - s.find(':') + 1);
@@ -127,7 +126,6 @@ void read::dividel(string& s, string& inst, string& dest, string& rs1, string& r
 	}
 
 	else if (comnum == 2) {
-		string dest = "", rs1 = "", rs2 = "";
 		dest_rs2(s, dest, rs1, rs2);
 	}
 
