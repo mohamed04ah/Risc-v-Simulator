@@ -39,6 +39,84 @@ void jal_func(map<string, string>& myMap, const vector<string>& com) {
     }
 }
 
+int Bintoint(string value) {
+
+    int result = 0;
+
+    for (int i = value.size(); i >= 0; i--) {
+        if (value[i] == '1') {
+
+            result += pow(2, value.size() - i - 1);
+
+        }
+    }
+    return result;
+
+
+}
+
+   
+
+void add(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    res = x1 + x2;
+    RegisterFile::write(dest, res);
+}
+
+void sub(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    res = x1 - x2;
+    RegisterFile::write(dest, res);
+}
+
+void slt(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    if (x1 < x2) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void slti(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1));
+    if (x1 < stoi(r2)) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void sltu(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+    if (x1 < 0) { x1 *= -1; }
+    if (x1 < x2) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void sltiu(string dest, string r1, string r2) {
+    int res = 0;
+    int x1 = Bintoint(RegisterFile::read(r1));
+    if (x1 < 0) { x1 *= -1; }
+    if (x1 < stoi(r2)) { RegisterFile::write(dest, 1); return; }
+    RegisterFile::write(dest, 0);
+}
+
+void jal() {
+    
+}
+
+void sra(string dest, string r1, string r2) {
+    signed int x1 = stoi(RegisterFile::read(r1)), x2 = stoi(RegisterFile::read(r2));
+    int r = x1 >> (x2 & 0b11111);
+    RegisterFile::write(dest, Bintoint(to_string(r)));
+}
+
+void srai(string dest, string r1, string r2) {
+    signed int x1 = stoi(RegisterFile::read(r1));
+    int r = x1 >> stoi(r2);
+    RegisterFile::write(dest, Bintoint(to_string(r)));
+}
+
 int main() {
     map<string, string> myMap;
     int lineNumber = 0;
