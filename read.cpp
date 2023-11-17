@@ -120,13 +120,8 @@ void read::dividel(string s) {
 		string loop = s.substr(0, s.find(':'));
 		s = s.substr(s.find(':') + 1, s.length() - s.find(':') + 1);
 	}
-
-	if (comnum == 0) {
-		string dest = "";
-		only_dst(inst, dest);
-	}
-
-	else if (comnum == 1) {
+		
+	if (comnum == 1) {
 		string dest = "", rs1 = "";
 		dest_rs1(inst, dest, rs1);
 	}
@@ -134,5 +129,9 @@ void read::dividel(string s) {
 	else if (comnum == 2) {
 		string dest = "", rs1 = "", rs2 = "";
 		dest_rs2(inst, dest, rs1, rs2);
+	}
+
+	else {
+		cout << invalid input << endl;
 	}
 }
