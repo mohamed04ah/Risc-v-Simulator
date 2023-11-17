@@ -1,14 +1,14 @@
 #include "read.h"
 
 void read::RemoveSpaces(string& s, string& instruction) {
-	string temp = "";
+	string temp = ""; int c = 0;
 	for (int i = 0; i < s.length(); i++) {
 		if (s[i] != ' ') {
 			temp += s[i];
 		}
-		else {
+		else if (!c) {
 			instruction = temp;
-			return;
+			c++;
 		}
 	}
 	s = temp;
@@ -112,26 +112,26 @@ void read::read_instructions()
 	Mem.program_loc(to_string(initial_loc), instructions);
 }
 
-void read::dividel(string s) {
-	string inst = "";
+void read::dividel(string& s, string& inst, string& dest, string& rs1, string& rs2) {
+	RemoveSpaces(s, inst);
 	int comnum = commaNum(s);
 	bool colb = col(s);
+
 	if (colb) {
 		string loop = s.substr(0, s.find(':'));
 		s = s.substr(s.find(':') + 1, s.length() - s.find(':') + 1);
 	}
-		
-	if (comnum == 1) {
-		string dest = "", rs1 = "";
-		dest_rs1(inst, dest, rs1);
+
+	else if (comnum == 1) {
+		dest_rs1(s, dest, rs1);
 	}
 
 	else if (comnum == 2) {
 		string dest = "", rs1 = "", rs2 = "";
-		dest_rs2(inst, dest, rs1, rs2);
+		dest_rs2(s, dest, rs1, rs2);
 	}
 
 	else {
-		cout << invalid input << endl;
+		cout << "invalid input" << endl;
 	}
 }
