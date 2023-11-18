@@ -535,4 +535,109 @@ void LS_instructions::bne(string r1, string r2, string label)
 
 }
 
+void LS_instructions::And(string dest, string r1, string r2)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(RegisterFile::read(r2));
+	int result = x1 & x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::Andi(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(imm);
+	int result = x1 & x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::Or(string dest, string r1, string r2)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(RegisterFile::read(r2));
+	int result = x1 | x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
 
+}
+void  LS_instructions::ori(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(imm);
+	int result = x1 | x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::Xor(string dest, string r1, string r2)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(RegisterFile::read(r2));
+	int result = x1 ^ x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void LS_instructions::xori(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = Bintoint(imm);
+	int result = x1 ^ x2;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void LS_instructions::sll(string dest, string r1, string shift)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(shift);
+	int result = x1 << shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::slli(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(imm);
+	int result = x1 << shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::srl(string dest, string r1, string shift)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(shift);
+	int result = x1 >> shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::srli(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(imm);
+	int result = x1 >> shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::sra(string dest, string r1, string shift)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(shift);
+	int result = x1 >> shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+void  LS_instructions::srai(string dest, string r1, string imm)
+{
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int shiftAmount = Bintoint(imm);
+	int result = x1 >> shiftAmount;
+	RegisterFile::write(dest, to_string(result));
+	PC += 4;
+}
+
+void  LS_instructions::jalr(string dest, string r1, string offset)
+{
+	int offsetInt = Bintoint(offset);
+	int x1 = Bintoint(RegisterFile::read(r1));
+	string nextInstruction = to_string(PC + 4);
+	RegisterFile::write(dest, nextInstruction);
+	PC = x1 + offsetInt;
+}
