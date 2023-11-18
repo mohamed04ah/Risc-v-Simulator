@@ -1,6 +1,6 @@
-4321
-ADDI t0,t1,15
-ADD  t2,t0,zero
-ADDI t4,zero,6316
-LW   s5,0(t4)
-ECALL
+8500
+ADDI t0,t0,4000
+LW a1,20,t0
+SW a1,0(t0)
+LH t5,4(t0)
+FENCE

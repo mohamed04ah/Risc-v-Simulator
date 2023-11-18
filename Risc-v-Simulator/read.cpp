@@ -77,6 +77,7 @@ void read::Call_Instructions(int pc)
 {
 	static int  counter = 1;
 	cout << counter << endl;
+	cout << PC << endl;
 	vector<string> v;
 	identify_inst(removespaces(Memory::read(to_string(pc))), v);
 	string action = v[0];
@@ -94,7 +95,7 @@ void read::Call_Instructions(int pc)
 	{
 		x.sub(v[1], v[2], v[3]);
 	}
-	else if (v[0] == "ADDI")
+	else if (action == "ADDI")
 	{
 		x.addi(v[1], v[2], v[3]);
 	}

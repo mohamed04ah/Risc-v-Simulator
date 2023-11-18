@@ -10,36 +10,47 @@ RegisterFile::RegisterFile() {
 	create_RF();
 }
 
-bool RegisterFile::validate(string rd)
+bool RegisterFile::validate(string rd,string tag)
 {
-
-	if (rd.size() != 2) return false;
-	else {
-		return rd == "x0" ? false : true;
-
-		if (rd[0] == 'a')
+	
+	
+	
+		if (rd == "zero") 
 		{
-			if (rd[1] > 7 || rd[1] < 0)
-				return false;
-		}
-		if (rd[0] == 's') {
-			if (rd[1] > 11 || rd[1] < 0)
-				return false;
-		}
-
-		if (rd[0] == 't') {
-			if (rd[1] > 6 || rd[1] < 0)
-				return false;
+			cout << "in condition" << endl;
+			if (tag == "0")
+				return true;
+			else 
+			return false;
 		}
 
-	}
+			if (rd[0] == 'a')
+			{
+				if (rd[1]-'0' > 7 || rd[1]-'0' < 0)
+					return false;
+			}
+			if (rd[0] == 's') {
+
+				if (rd[1] - '0' > 11 || rd[1] - '0' < 0)
+					return false;
+			}
+
+			if (rd[0] == 't') {
+				if (rd[1] - '0' > 6 || rd[1] - '0' < 0)
+					return false;
+			}
+		
+
+	
 
 	return true;
+	
 }
 
 string RegisterFile::Iread(string r1)
 {
-	bool validated = validate(r1);
+	
+	bool validated = validate(r1,"0");
 	if (validated)
 	{
 		auto it = registers.find(r1);
@@ -47,13 +58,14 @@ string RegisterFile::Iread(string r1)
 	}
 
 
-	return "invalid Read";
+	return "invalid Read1";
 
 }
 
 read_reg RegisterFile::Iread(string r1, string r2)
 {
-	bool validated = validate(r1) && validate(r2);
+	
+	bool validated = validate(r1,"0") && validate(r2,"0");
 	if (validated) {
 		read_reg result;
 		auto it = registers.find(r1);
@@ -63,20 +75,21 @@ read_reg RegisterFile::Iread(string r1, string r2)
 		return result;
 	}
 
-	cout << endl << "invalid read" << endl;
+	cout << endl << "invalid read2" << endl;
 
 }
 
 bool RegisterFile::Iwrite(string rd, string value)
 {
-	bool validated = validate(rd);
+	bool validated = validate(rd,"1");
 
 		if (validated)
 		{
 			registers[rd] = bitset<32>(stoi(value)).to_string();
 			return true;
 		}
-		cout << endl << "invalid Write." << endl;
+		cout << "writing to" << rd << " " << rd.size() << endl;
+		cout << endl << "invalid Write1." << endl;
 		return false;
 
 
@@ -84,14 +97,14 @@ bool RegisterFile::Iwrite(string rd, string value)
 
 bool RegisterFile::Iwrite1(string rd, string value)
 {
-	bool validated = validate(rd);
+	bool validated = validate(rd,"1");
 	
 	if (validated)
 	{
 		registers[rd] = value;
 		return true;
 	}
-	cout << endl << "invalid Write." << endl;
+	cout << endl << "invalid Write2." << endl;
 	return false;
 
 }
@@ -141,7 +154,7 @@ string decimal_hexa(string value)
 		char c;
 		c = mod < 10 ? mod + 48 : mod + 55;
 		result += c;
-		val = val / 16;
+		val = val / 16;		
 	}
 	int size = result.size() - 1;
 	while (i < size)

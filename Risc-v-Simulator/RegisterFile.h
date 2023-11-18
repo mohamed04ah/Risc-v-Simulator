@@ -31,7 +31,7 @@ public:
 private:
 	RegisterFile();
 	map<string, string> registers;
-	bool validate(string rd);
+	bool validate(string rd,string tag);
 	string Iread(string r1);
 	read_reg Iread(string r1, string r2);
 	bool Iwrite(string rd, string value);

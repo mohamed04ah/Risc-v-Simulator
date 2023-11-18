@@ -25,11 +25,11 @@ public:
 	void Print_all() 
 	{
 		cout << "PC|RegisterFile|Memory" << endl;
-		cout <<  PC << endl; 
+		Memory::print_memory();
+		cout << endl;
 	     RegisterFile::print_RF();
 	cout << endl; 
-	//Memory::print_memory();
-	cout << endl; 
+	
 	}
 private: 
 	int initial_loc = 0;
