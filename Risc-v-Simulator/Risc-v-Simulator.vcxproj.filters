@@ -53,5 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
+    <Text Include="memory.txt" />
   </ItemGroup>
 </Project>

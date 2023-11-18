@@ -22,9 +22,6 @@ public:
 	bool storeB(string rs1, string offset, string rs2);
 	bool storehw(string rs1, string offset, string rs2);
 	bool load_ui(string rd, string imm);
-	bool fence();
-	bool ecall();
-	bool ebreak();
 	void beq(string r1, string r2, string label);
 	void bne(string r1, string r2, string label);
 	void add(string dest, string r1, string r2);
@@ -35,8 +32,6 @@ public:
 	void sltu(string dest, string r1, string r2);
 	void sltiu(string dest, string r1, string r2);
 	void jal(string ra, string label);
-	void sra(string dest, string r1, string r2);
-	void srai(string dest, string r1, string r2);
 	void jalr(string dest, string r1, string offset);
 	void blt(string r1, string r2, string label);
 	void bltu(string r1, string r2, string label);

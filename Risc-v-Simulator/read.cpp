@@ -3,7 +3,7 @@
 read::read()
 {
 	read_instructions();
-	Memory::print_memory();
+	
 	Call_Instructions(PC);
 	
 }
@@ -43,9 +43,34 @@ void read::read_instructions()
 			}
 		}
 	}
-
-	
 	Mem.program_loc(to_string(initial_loc), instructions);
+	//==========================
+	counter = 0;
+	string filename1 = "memory.txt";
+	ifstream inputfile1(filename1);
+	string fa;
+	if (inputfile1.is_open()) 
+	{
+
+		string line;
+		string element;
+		while (getline(inputfile1, line))
+		{
+			
+			if (counter == 0) 
+			{
+				fa = line;
+				counter++;
+			}
+			else 
+			{
+				Mem.write(fa, line);
+				fa = to_string(stoi(fa) + 4);
+			}
+		}
+	}
+	
+
 }
 
 void read::Call_Instructions(int pc)
@@ -55,7 +80,6 @@ void read::Call_Instructions(int pc)
 	vector<string> v;
 	identify_inst(removespaces(Memory::read(to_string(pc))), v);
 	string action = v[0];
-	cout << action << action.size() << endl;
 	if (action == "ECALL" || action == "EBREAK" || action == "FENCE")
 		return; 
 	 static LS_instructions x;
@@ -233,7 +257,7 @@ void read::identify_inst(string inst,vector<string>&breakdown)
 	
 
 	if (inst == "EBREAK" || inst == "FENCE" || inst == "ECALL") {
-		breakdown.push_back("-1");
+		breakdown.push_back(inst);
 		return;
 	}
 	int comnum = commaNum(inst);

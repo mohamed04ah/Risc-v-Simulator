@@ -1,9 +1,6 @@
 4321
 ADDI t0,t1,15
 ADD  t2,t0,zero
-BEQ  t0,t2,label
-ADDI t5,zero,15
-label: SUB a1,t2,zero
-ADDI t0,t1,15
-Bne  zero,t0,l1
-l1: ECALL
+ADDI t4,zero,6316
+LW   s5,0(t4)
+ECALL

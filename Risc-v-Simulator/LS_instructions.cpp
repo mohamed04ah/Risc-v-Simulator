@@ -54,9 +54,10 @@ bool LS_instructions::Loadw(string rd, string offset, string base_reg)
 	
 	if (RegisterFile::write1(rd, data))
 	{
-		
+		PC += 4;
 		return true;
 	}
+	PC += 4;
 	return false;
 }
 
@@ -69,7 +70,11 @@ bool LS_instructions::storew(string rs1, string offset, string rs2)
 	int location = stoi(offset) + Bintoint(address);
 
 	if (Memory::write1(to_string(location), R.r1))
+	{
+		PC += 4;
 		return true;
+	}
+	PC += 4;
 	return false; 
 }
 
@@ -114,8 +119,11 @@ bool LS_instructions::loadhw(string rd, string offset, string base_reg)
 	t1 += store;
 	
 	if (RegisterFile::write1(rd, t1))
+	{
+		PC += 4;
 		return true;
-
+	}
+	PC += 4;
 	return false;
 }
 
@@ -147,8 +155,11 @@ bool LS_instructions::loadhw_u(string rd, string offset, string base_reg)
 	t1 += store;
 
 	if (RegisterFile::write1(rd, t1))
+	{
+		PC += 4;
 		return true;
-
+	}
+	PC += 4;
 	return false;
 }
 
@@ -193,8 +204,12 @@ bool LS_instructions::loadb(string rd, string offset, string base_reg)
 	t1 += store;
 
 	if (RegisterFile::write1(rd, t1))
-		return true;
 
+	{
+		PC += 4;
+		return true;
+	}
+	PC += 4;
 	return false;
 }
 
@@ -226,8 +241,11 @@ bool LS_instructions::loadb_u(string rd, string offset, string base_reg)
 	t1 += store;
 
 	if (RegisterFile::write1(rd, t1))
+	{
+		PC += 4;
 		return true;
-
+	}
+	PC += 4;
 	return false;
 }
 
@@ -275,7 +293,11 @@ bool LS_instructions::storeB(string rs1, string offset, string rs2)
 	t1 += store;
 
 	if (Memory::write1(to_string(location), t1))
+	{
+		PC += 4;
 		return true;
+	}
+	PC += 4;
 	return false;
 
 
@@ -325,7 +347,11 @@ bool LS_instructions::storehw(string rs1, string offset, string rs2)
 	t1 += store;
 
 	if (Memory::write1(to_string(location), t1))
+	{
+		PC += 4;
 		return true;
+	}
+	PC += 4;
 	return false; 
 
 
@@ -340,36 +366,19 @@ bool LS_instructions::load_ui(string rd, string imm)
 		store += '0';
 	}
 	if (RegisterFile::write1(rd, store))
-		return true; 
-
+	{
+		PC += 4;
+		return true;
+	}
+	PC += 4;
 	return false; 
 }
-
-bool LS_instructions::fence()
-{
-	return true; 
-	
-}
-
-bool LS_instructions::ecall()
-{
-	return false;
-}
-
-bool LS_instructions::ebreak()
-{
-	return false;
-}
-
-//=====================================
-
 
 void  LS_instructions::add(string dest, string r1, string r2) {
 	int res = 0;
 	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
 	res = x1 + x2;
 	RegisterFile::write(dest, to_string(res));
-	cout << "valuee sdd" << RegisterFile::read(dest) << endl;
 	PC += 4;
 }
 
@@ -378,7 +387,6 @@ void  LS_instructions::addi(string dest, string r1, string r2) {
 	int x1 = Bintoint(RegisterFile::read(r1)), x2 = stoi(r2);
 	res = x1 + x2;
 	RegisterFile::write(dest, to_string(res));
-	cout << "valuee" << RegisterFile::read(dest) << endl;
 	read r(0);
 	PC += 4;
 }
@@ -448,19 +456,7 @@ void  LS_instructions::jal(string ra, string label)
 
 }
 
-void  LS_instructions::sra(string dest, string r1, string r2) {
-	signed int x1 = stoi(RegisterFile::read(r1)), x2 = stoi(RegisterFile::read(r2));
-	int r = x1 >> (x2 & 0b11111);
-	RegisterFile::write(dest, to_string(r));
-	PC += 4;
-}
 
-void  LS_instructions::srai(string dest, string r1, string r2) {
-	signed int x1 = stoi(RegisterFile::read(r1));
-	int r = x1 >> stoi(r2);
-	RegisterFile::write(dest,to_string(r));
-	PC += 4;
-}
 
 void LS_instructions::blt(string r1, string r2, string label) {
 	bool t = 0;
