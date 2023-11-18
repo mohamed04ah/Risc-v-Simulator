@@ -441,7 +441,10 @@ void  LS_instructions::sltiu(string dest, string r1, string r2) {
 	return;
 }
 
-void  LS_instructions::jal(string ra, string label) {
+void  LS_instructions::jal(string ra, string label) 
+{
+		RegisterFile::write(ra, to_string(PC+4));
+		PC = stoi((Memory::read_label(label)));
 
 }
 
@@ -634,10 +637,18 @@ void  LS_instructions::srai(string dest, string r1, string imm)
 }
 
 void  LS_instructions::jalr(string dest, string r1, string offset)
-{
-	int offsetInt = Bintoint(offset);
-	int x1 = Bintoint(RegisterFile::read(r1));
-	string nextInstruction = to_string(PC + 4);
-	RegisterFile::write(dest, nextInstruction);
-	PC = x1 + offsetInt;
+{ 
+	if (dest == "zero") 
+	{
+		PC = Bintoint(RegisterFile::read("r1"));
+	}
+	else
+	{
+		string nextInstruction = to_string(PC + 4);
+		RegisterFile::write(dest, nextInstruction);
+		int offsetInt = Bintoint(offset);
+		int x1 = Bintoint(RegisterFile::read(r1));
+		
+		PC = x1 + offsetInt;
+	}	
 }

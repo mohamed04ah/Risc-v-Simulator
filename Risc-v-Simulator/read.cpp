@@ -80,11 +80,11 @@ void read::Call_Instructions(int pc)
 	}
 	 else if (action == "JAL") // to be adjusted
 	{
-		x.addi(v[1], v[2], v[3]);
+		x.jal(v[1], v[2]);
 	}
 	 else if (action == "JALR") // to be adjusted 
 	{
-		x.addi(v[1], v[2], v[3]);
+		x.jalr(v[1], v[2], v[3]);
 	}
 	else if (action == "BEQ")
 	{
@@ -151,10 +151,62 @@ void read::Call_Instructions(int pc)
 	{
 		x.sltiu(v[1], v[2], v[3]);
 	}
-	else if (action == "BGE")
+	else if (action == "XORI")
 	{
-		x.add(v[1], v[2], v[3]);
+		x.xori(v[1], v[2], v[3]);
 	}
+	else if (action == "ORI")
+	{
+		x.ori(v[1], v[2], v[3]);
+	}
+	else if (action == "ANDI")
+	{
+		x.Andi(v[1], v[2], v[3]);
+	}
+	else if (action == "SLLI")
+	{
+		x.slli(v[1], v[2], v[3]);
+		}
+	else if (action == "SRLI")
+	{
+		x.srli(v[1], v[2], v[3]);
+		}
+	else if (action == "SRAI")
+	{
+		x.srai(v[1], v[2], v[3]);
+		}
+	else if (action == "SLL")
+	{
+		x.sll(v[1], v[2], v[3]);
+		}
+	else if (action == "SLT")
+	{
+		x.slt(v[1], v[2], v[3]);
+		}
+	else if (action == "SLTU")
+	{
+		x.sltu(v[1], v[2], v[3]);
+		}
+	else if (action == "XOR")
+	{
+		x.Xor(v[1], v[2], v[3]);
+		}
+	else if (action == "SRL")
+	{
+		x.srl(v[1], v[2], v[3]);
+		}
+	else if (action == "SRA")
+	{
+		x.sra(v[1], v[2], v[3]);
+		}
+	else if (action == "OR")
+	{
+		x.Or(v[1], v[2], v[3]);
+		}
+	else if (action == "AND")
+	{
+		x.And(v[1], v[2], v[3]);
+		}
 
 	Print_all();
 	counter++;
