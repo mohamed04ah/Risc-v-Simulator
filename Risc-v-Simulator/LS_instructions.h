@@ -6,6 +6,7 @@
 #include"RegisterFile.h"
 #include"Memory.h"
 #include "read.h"
+#include"global.h"
 using namespace std;
 class LS_instructions
 {
@@ -24,6 +25,36 @@ public:
 	bool fence();
 	bool ecall();
 	bool ebreak();
+	void beq(string r1, string r2, string label);
+	void bne(string r1, string r2, string label);
+	void add(string dest, string r1, string r2);
+	void addi(string dest, string r1, string r2);
+	void sub (string dest, string r1, string r2);
+	void slt(string dest, string r1, string r2);
+	void slti(string dest, string r1, string r2);
+	void sltu(string dest, string r1, string r2);
+	void sltiu(string dest, string r1, string r2);
+	void jal(string ra, string label);
+	void sra(string dest, string r1, string r2);
+	void srai(string dest, string r1, string r2);
+	void jalr(string dest, string r1, string offset);
+	void blt(string r1, string r2, string label);
+	void bltu(string r1, string r2, string label);
+	void bgt(string r1, string r2, string label);
+	void bgtu(string r1, string r2, string label);
+	void And(string dest, string r1, string r2);
+	void Andi(string dest, string r1, string imm);
+	void Or(string dest, string r1, string r2);
+	void ori(string dest, string r1, string imm);
+	void Xor(string dest, string r1, string r2);
+	void xori(string dest, string r1, string imm);
+	void sll(string dest, string r1, string shift);
+	void slli(string dest, string r1, string imm);
+	void srl(string dest, string r1, string shift);
+	void srli(string dest, string r1, string imm);
+	void sra(string dest, string r1, string shift);
+	void srai(string dest, string r1, string imm);
+
 
 
 private: 

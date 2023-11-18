@@ -7,7 +7,7 @@ LS_instructions::LS_instructions()
 }
 int Bintoint(string value) {
 	
-	int result = 0;
+	/*int result = 0;
 
 	for (int i = value.size(); i >= 0; i--) {
 		if (value[i] == '1') {
@@ -16,7 +16,30 @@ int Bintoint(string value) {
 
 		}
 	}
-	return result;
+	return result;*/
+	if (value[0] == '1')
+	{
+		int r1;
+		r1 = bitset<32>(value).to_ullong();
+
+		r1 = -((1 << value.length()) - r1);
+		return r1 + 1;
+	}
+	else
+	{
+		int result = 0;
+		for (int i = value.size(); i >= 0; i--)
+		{
+			if (value[i] == '1') {
+
+				result += pow(2, value.size() - i - 1);
+
+			}
+		}
+		return result;
+	}
+
+	return 0;
 
 	
 }
@@ -337,3 +360,179 @@ bool LS_instructions::ebreak()
 {
 	return false;
 }
+
+//=====================================
+
+
+void  LS_instructions::add(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	res = x1 + x2;
+	RegisterFile::write(dest, to_string(res));
+	cout << "valuee sdd" << RegisterFile::read(dest) << endl;
+	PC += 4;
+}
+
+void  LS_instructions::addi(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = stoi(r2);
+	res = x1 + x2;
+	RegisterFile::write(dest, to_string(res));
+	cout << "valuee" << RegisterFile::read(dest) << endl;
+	read r(0);
+	PC += 4;
+}
+
+
+void  LS_instructions::sub(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	res = x1 - x2;
+	RegisterFile::write(dest, to_string(res));
+	PC += 4;
+}
+
+void  LS_instructions::slt(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	if (x1 < x2)
+	{ RegisterFile::write(dest, "1");
+	}
+	else 
+	{
+		RegisterFile::write(dest, "0");
+		 
+	}
+	PC += 4;
+	return; 
+}
+
+void  LS_instructions::slti(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1));
+	if (x1 < stoi(r2)) { RegisterFile::write(dest, "1");  }
+	RegisterFile::write(dest, "0");
+	PC += 4;
+	return; 
+}
+
+void  LS_instructions::sltu(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	if (x1 < 0) { x1 *= -1; }
+	if (x2 < 0) { x2 *= -1; }
+	if (x1 < x2) { RegisterFile::write(dest, "1");  }
+	else 
+   RegisterFile::write(dest, "0");
+	PC += 4;
+	return;
+}
+
+void  LS_instructions::sltiu(string dest, string r1, string r2) {
+	int res = 0;
+	int x1 = Bintoint(RegisterFile::read(r1));
+	int x2 = stoi(r2);
+	if (x1 < 0) { x1 *= -1; }
+	if (x2 < 0) x2 *= -1;
+
+	if (x1 < x2) { RegisterFile::write(dest, "1");  }
+	RegisterFile::write(dest, "0");
+	PC += 4;
+	return;
+}
+
+void  LS_instructions::jal(string ra, string label) {
+
+}
+
+void  LS_instructions::sra(string dest, string r1, string r2) {
+	signed int x1 = stoi(RegisterFile::read(r1)), x2 = stoi(RegisterFile::read(r2));
+	int r = x1 >> (x2 & 0b11111);
+	RegisterFile::write(dest, to_string(r));
+	PC += 4;
+}
+
+void  LS_instructions::srai(string dest, string r1, string r2) {
+	signed int x1 = stoi(RegisterFile::read(r1));
+	int r = x1 >> stoi(r2);
+	RegisterFile::write(dest,to_string(r));
+	PC += 4;
+}
+
+void LS_instructions::blt(string r1, string r2, string label) {
+	bool t = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	t = x1 < x2;
+	if (t) {
+		PC = stoi(Memory::read_label(label));
+	}
+}
+
+void  LS_instructions::bltu(string r1, string r2, string label)
+{
+	bool t = 0;
+	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+	if (x1 < 0) { x1 *= -1; }
+	if (x2 < 0) { x2 *= -1; }
+	t = x1 < x2;
+	if (t) {
+		PC = stoi(Memory::read_label(label));
+	}
+}
+
+void LS_instructions::bgt(string r1, string r2, string label)
+	{
+		bool t = 0;
+		int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+		t = x1 > x2;
+		if (t) {
+			PC = stoi(Memory::read_label(label));
+		}
+	}
+
+void LS_instructions::bgtu(string r1, string r2, string label) {
+		bool t = 0;
+		int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
+		if (x1 < 0) { x1 *= -1; }
+		if (x2 < 0) { x2 *= -1; }
+		t = x1 > x2;
+		if (t) {
+			PC = stoi(Memory::read_label(label));
+		}
+	}
+
+void LS_instructions::beq(string r1, string r2, string label)
+{
+	read_reg R; 
+	R=RegisterFile::read(r1, r2); 
+	read r(0);
+
+	if (R.r1 == R.r2)
+	{
+		PC= stoi((Memory::read_label(label)));
+		return; 
+	}
+	PC += 4;
+
+	return;
+
+}
+void LS_instructions::bne(string r1, string r2, string label)
+{
+	read_reg R;
+	R = RegisterFile::read(r1, r2);
+	read r(0);
+	
+	if (R.r1 != R.r2)
+	{
+		PC = stoi((Memory::read_label(label)));
+		return;
+	}
+	PC += 4;
+
+
+	return;
+
+}
+
+

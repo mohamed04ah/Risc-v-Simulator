@@ -1,5 +1,9 @@
 4321
-ADDI t0, x20, -12
-l1: JALR ra,t
-loop : ADD s5,t4,zero
-lw  s5, 16(x21)
+ADDI t0,t1,15
+ADD  t2,t0,zero
+BEQ  t0,t2,label
+ADDI t5,zero,15
+label: SUB a1,t2,zero
+ADDI t0,t1,15
+Bne  zero,t0,l1
+l1: ECALL

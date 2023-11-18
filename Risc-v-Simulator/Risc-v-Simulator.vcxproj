@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="global.h" />
     <ClInclude Include="LS_instructions.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="read.h" />
     <ClInclude Include="RegisterFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="LS_instructions.cpp" />
     <ClCompile Include="main..cpp" />
     <ClCompile Include="Memory.cpp" />

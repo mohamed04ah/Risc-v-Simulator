@@ -3,6 +3,8 @@
 read::read()
 {
 	read_instructions();
+	Memory::print_memory();
+	Call_Instructions(PC);
 	
 }
 
@@ -26,6 +28,7 @@ void read::read_instructions()
 				initial_loc = stoi(line);
 				counter++;
 				location = initial_loc;
+				PC = initial_loc;
 			}
 			else 
 			{
@@ -45,6 +48,121 @@ void read::read_instructions()
 	Mem.program_loc(to_string(initial_loc), instructions);
 }
 
+void read::Call_Instructions(int pc)
+{
+	static int  counter = 1;
+	cout << counter << endl;
+	vector<string> v;
+	identify_inst(removespaces(Memory::read(to_string(pc))), v);
+	string action = v[0];
+	cout << action << action.size() << endl;
+	if (action == "ECALL" || action == "EBREAK" || action == "FENCE")
+		return; 
+	 static LS_instructions x;
+
+	if (action == "ADD")
+	{
+		x.add(v[1], v[2], v[3]);
+	
+
+	}
+	else if (action == "SUB")
+	{
+		x.sub(v[1], v[2], v[3]);
+	}
+	else if (v[0] == "ADDI")
+	{
+		x.addi(v[1], v[2], v[3]);
+	}
+	else if (action == "LUI")
+	{
+		x.load_ui(v[1],v[2]);
+	}
+	 else if (action == "JAL") // to be adjusted
+	{
+		x.addi(v[1], v[2], v[3]);
+	}
+	 else if (action == "JALR") // to be adjusted 
+	{
+		x.addi(v[1], v[2], v[3]);
+	}
+	else if (action == "BEQ")
+	{
+		x.beq(v[1], v[2], v[3]);
+		
+	}
+	else if (action == "BNE")
+	{
+		x.bne(v[1], v[2], v[3]);
+	}
+	else if (action == "BLT")
+	{
+		x.blt(v[1], v[2], v[3]);
+	}
+	else if (action == "BGE")
+	{
+		x.bgt(v[1], v[2], v[3]);
+	}
+	else if (action == "BLTU")
+	{
+		x.bltu(v[1], v[2], v[3]);
+	}
+	else if (action == "BGEU")
+	{
+		x.bgtu(v[1], v[2], v[3]);
+	}
+	else if (action == "LB")
+	{
+		x.loadb(v[1],v[2],v[3]);
+	}
+	else if (action == "LH")
+	{
+		x.loadhw(v[1], v[2], v[3]);
+	}
+	else if (action == "LW")
+	{
+		x.Loadw(v[1], v[2], v[3]);
+	}
+	else if (action == "LBU")
+	{
+		x.loadb_u(v[1], v[2], v[3]);
+	}
+	else if (action == "LHU")
+	{
+		x.loadhw_u(v[1], v[2], v[3]);
+	}
+	else if (action == "SB")
+	{
+		x.storeB(v[1], v[2], v[3]);
+	}
+	else if (action == "SH")
+	{
+		x.storehw(v[1], v[2], v[3]);
+	}
+	else if (action == "SW")
+	{
+		x.storew(v[1], v[2], v[3]);
+	}
+	else if (action == "SLTI")
+	{
+		x.slti(v[1], v[2], v[3]);
+	}
+	else if (action == "SLTIU")
+	{
+		x.sltiu(v[1], v[2], v[3]);
+	}
+	else if (action == "BGE")
+	{
+		x.add(v[1], v[2], v[3]);
+	}
+
+	Print_all();
+	counter++;
+	
+	Call_Instructions(PC);
+
+}
+
 
 
 bool read::find_col(string s)
@@ -58,11 +176,10 @@ bool read::find_col(string s)
 		return 0;
 }
 
-void read::identify_inst(int pc)
+void read::identify_inst(string inst,vector<string>&breakdown)
 {
-	vector<string> breakdown;
+	
 
-	string inst= removespaces(Memory::read(to_string(pc)));
 	if (inst == "EBREAK" || inst == "FENCE" || inst == "ECALL") {
 		breakdown.push_back("-1");
 		return;
@@ -96,7 +213,7 @@ void read::identify_inst(int pc)
 	{
 		
 		string search = inst.substr(0, inst.find(','));
-	
+		
 		int n1, n2, n3, n4, n5;
 		n1 = search.find('s'); n2 = search.find('a'); n3 = search.find('z'); n4 = search.find('t'); n5 = search.find('r');
 		
@@ -114,9 +231,10 @@ void read::identify_inst(int pc)
 		
 		action = search.substr(0, N);
 		
+		
 	}
 	
-	
+	breakdown.push_back(action);
 	
 	if (comnum == 1) 
 	{
@@ -126,6 +244,7 @@ void read::identify_inst(int pc)
 	{
 		comma_2(inst, action, tag, breakdown);
 	}
+	return;
 
 }
 void read::comma_1(string s,string action,int tag,vector<string>&breakdown)
@@ -152,7 +271,7 @@ void read::comma_1(string s,string action,int tag,vector<string>&breakdown)
 		
 		string r2 = s.substr(0, s.find(')'));
 		breakdown.push_back(r2);
-			
+		return;
 	
 }
 void read::comma_2(string s, string action, int tag, vector<string>& breakdown) 
@@ -165,16 +284,20 @@ void read::comma_2(string s, string action, int tag, vector<string>& breakdown)
 	
 	s.erase(0, action.size());
 	string e1 = s.substr(0, s.find(','));
+	
 	breakdown.push_back(e1);
 	s.erase(s.find(e1), s.find(',') + 1);
+
 	string e2 = s.substr(0,s.find(','));
+	
 	breakdown.push_back(e2);
 	s.erase(0, s.find(',')+1);
+	
 	breakdown.push_back(s);
 
-	cout << e1 << endl << e2 << endl << s << endl;
+	
 
-
+	return; 
 
 }
 string read::removespaces(string s)
