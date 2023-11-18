@@ -1,9 +1,12 @@
 Mohamed: november 6 7pm: created RegisterFile class basic functionality (Read)
 Mohamed: november 7 2pm: added the print,create,write, validate funcitonalities to the RegisterFile class. carried out small test to insure functionality 
 John: november 7 9pm: created and, or, andi, ori logic in the main + reading instructions from file one by one but reads all instructions in assembly and converts into c++ + flow of the functions using maps
+Michael: november 7 9.30pm: created the functions for the following instructions: add, sub, slt, slti, sltu, sltiu.
 John: november 8 6:20pm: created xor, xori, jal, jalr, sll, slli, srl, srli logical functions 
+Michael: november 8 7pm: created the functions for the following instructions: jal, sra, srai, blt, bltu, bgt, bgtu.
 Mohamed: november 9 4pm: created the "Memory class" implemented read and write functionality, alongside print functionality to display memory elements.  Implemented SW, LW  instructions. 
 Mohamed: novermber 10 9:39 pm: implemented function to store user instructions in the memory, validated requests to write to memory before operation is done. 
 Mohamed:november 12 11:14-m: Added lh,lhu,lb,lbu,sb,sh instructions. Added 2 write functions to the memory and register file class to accommodate the implemented instructions mentioned.  carried out small test cases to ensure functionality. 
+Michael: november 15 6pm: created a class with mohamed that reads the input from a file and separates each line into the required variables, ex: the instruction, the destination, etc...
 John: november 17 9pm: Redid all the logic operations that were implemented in the main and inserted them into functions using the class Registerfile.h and Registerfile.cpp 
 
