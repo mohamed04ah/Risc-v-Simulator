@@ -6,9 +6,9 @@ John: november 8 6:20pm: created xor, xori, jal, jalr, sll, slli, srl, srli logi
 Michael: november 8 7pm: created the functions for the following instructions: jal, sra, srai, blt, bltu, bgt, bgtu.
 Mohamed: november 9 4pm: created the "Memory class" implemented read and write functionality, alongside print functionality to display memory elements.  Implemented SW, LW  instructions. 
 Mohamed: novermber 10 9:39 pm: implemented function to store user instructions in the memory, validated requests to write to memory before operation is done. 
-Mohamed:november 12 11:14-m: Added lh,lhu,lb,lbu,sb,sh instructions. Added 2 write functions to the memory and register file class to accommodate the implemented instructions mentioned.  carried out small test cases to ensure functionality. 
+Mohamed:november 12 11:14 pm: Added lh,lhu,lb,lbu,sb,sh instructions. Added 2 write functions to the memory and register file class to accommodate the implemented instructions mentioned.  carried out small test cases to ensure functionality. 
 Michael: november 15 6pm: created a class with mohamed that reads the input from a file and separates each line into the required variables, ex: the instruction, the destination, etc...
 John: november 17 9pm: Redid all the logic operations that were implemented in the main and inserted them into functions using the class Registerfile.h and Registerfile.cpp 
 Mohamed: November 12  6:03 pm: added BEQ,BNE instructions, adjusted BIN to Decimal conversion to handle negative values. Implemented function to convert decimal to hexadecimal 
 Mohamed: november 13  5:47 pm: added functionality to the read class created with Michael to handle memory initialization files. Adjusted validate function in RegisterFIle class to fix writing erros. 
-
+Mohamed: november 14: 9:30 pm :added 4 test cases covering all program functions implemented.
