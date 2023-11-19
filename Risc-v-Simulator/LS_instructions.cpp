@@ -423,6 +423,7 @@ void  LS_instructions::slti(string dest, string r1, string r2) {
 	int res = 0;
 	int x1 = Bintoint(RegisterFile::read(r1));
 	if (x1 < stoi(r2)) { RegisterFile::write(dest, "1");  }
+	else 
 	RegisterFile::write(dest, "0");
 	PC += 4;
 	return; 
@@ -448,6 +449,7 @@ void  LS_instructions::sltiu(string dest, string r1, string r2) {
 	if (x2 < 0) x2 *= -1;
 
 	if (x1 < x2) { RegisterFile::write(dest, "1");  }
+	else 
 	RegisterFile::write(dest, "0");
 	PC += 4;
 	return;
@@ -457,7 +459,7 @@ void  LS_instructions::jal(string ra, string label)
 {
 		RegisterFile::write(ra, to_string(PC+4));
 		PC = stoi((Memory::read_label(label)));
-
+		cout << "wrote to ra" << RegisterFile::read(ra) << endl;
 }
 
 
@@ -481,16 +483,21 @@ void  LS_instructions::bltu(string r1, string r2, string label)
 	if (t) {
 		PC = stoi(Memory::read_label(label));
 	}
+	else 
+	PC += 4;
 }
 
 void LS_instructions::bgt(string r1, string r2, string label)
 	{
-		bool t = 0;
+		bool t = false;
 		int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
-		t = x1 > x2;
-		if (t) {
+		t = (x1 >= x2);
+		if (t) 
+		{
 			PC = stoi(Memory::read_label(label));
 		}
+		else
+			PC += 4;
 	}
 
 void LS_instructions::bgtu(string r1, string r2, string label) {
@@ -498,17 +505,19 @@ void LS_instructions::bgtu(string r1, string r2, string label) {
 		int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
 		if (x1 < 0) { x1 *= -1; }
 		if (x2 < 0) { x2 *= -1; }
-		t = x1 > x2;
+		t = x1 >= x2;
 		if (t) {
 			PC = stoi(Memory::read_label(label));
 		}
+		else
+			PC += 4;
 	}
 
 void LS_instructions::beq(string r1, string r2, string label)
 {
 	read_reg R; 
 	R=RegisterFile::read(r1, r2); 
-	read r(0);
+	
 
 	if (R.r1 == R.r2)
 	{
@@ -524,7 +533,7 @@ void LS_instructions::bne(string r1, string r2, string label)
 {
 	read_reg R;
 	R = RegisterFile::read(r1, r2);
-	read r(0);
+	
 	
 	if (R.r1 != R.r2)
 	{
@@ -549,7 +558,7 @@ void LS_instructions::And(string dest, string r1, string r2)
 void  LS_instructions::Andi(string dest, string r1, string imm)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int x2 = Bintoint(imm);
+	int x2 = stoi(imm);
 	int result = x1 & x2;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
@@ -566,7 +575,7 @@ void  LS_instructions::Or(string dest, string r1, string r2)
 void  LS_instructions::ori(string dest, string r1, string imm)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int x2 = Bintoint(imm);
+	int x2 = stoi(imm);
 	int result = x1 | x2;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
@@ -582,7 +591,7 @@ void  LS_instructions::Xor(string dest, string r1, string r2)
 void LS_instructions::xori(string dest, string r1, string imm)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int x2 = Bintoint(imm);
+	int x2 = stoi(imm);
 	int result = x1 ^ x2;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
@@ -636,11 +645,12 @@ void  LS_instructions::srai(string dest, string r1, string imm)
 	PC += 4;
 }
 
-void  LS_instructions::jalr(string dest, string r1, string offset)
+void  LS_instructions::jalr(string dest, string offset, string r1)
 { 
+	cout << "recieved" << dest << offset << r1 << endl;
 	if (dest == "zero") 
 	{
-		PC = Bintoint(RegisterFile::read("r1"));
+		PC = Bintoint(RegisterFile::read(r1));
 	}
 	else
 	{

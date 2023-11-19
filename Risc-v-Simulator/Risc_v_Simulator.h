@@ -7,11 +7,10 @@
 #include"LS_instructions.h"
 #include"global.h"
 using namespace std;
-class read
+class Risc_v_Simulator
 {
-public: 
-	read();
-	read(int n) {};
+	public: 
+	Risc_v_Simulator();
 	void read_instructions();
 	void Call_Instructions(int pc);
 	bool find_col(string s);
@@ -20,8 +19,7 @@ public:
 	int commaNum(string s);
 	void comma_1(string s,string action,int tag,vector<string>&breakdown);
 	void comma_2(string s, string action, int tag, vector<string>& breakdown);
-	/*int& get_pc() { return PC; }
-	void set_PC(string address) { PC = stoi(address); }*/
+	
 	void Print_all() 
 	{
 		cout << "PC|RegisterFile|Memory" << endl;
@@ -31,7 +29,7 @@ public:
 	cout << endl; 
 	
 	}
-private: 
+	private: 
 	int initial_loc = 0;
 	int no_inst = 0;
       

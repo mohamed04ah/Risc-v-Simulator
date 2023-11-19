@@ -17,7 +17,7 @@ bool RegisterFile::validate(string rd,string tag)
 	
 		if (rd == "zero") 
 		{
-			cout << "in condition" << endl;
+			
 			if (tag == "0")
 				return true;
 			else 
@@ -41,7 +41,7 @@ bool RegisterFile::validate(string rd,string tag)
 			}
 		
 
-	
+		
 
 	return true;
 	

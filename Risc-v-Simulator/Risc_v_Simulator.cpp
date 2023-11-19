@@ -1,6 +1,6 @@
-#include "read.h"
+#include "Risc_v_Simulator.h"
 
-read::read()
+Risc_v_Simulator::Risc_v_Simulator()
 {
 	read_instructions();
 	
@@ -8,7 +8,7 @@ read::read()
 	
 }
 
-void read::read_instructions()
+void Risc_v_Simulator::read_instructions()
 {
 	Memory& Mem = Memory::getinstance();
 	int counter = 0;
@@ -73,7 +73,7 @@ void read::read_instructions()
 
 }
 
-void read::Call_Instructions(int pc)
+void Risc_v_Simulator::Call_Instructions(int pc)
 {
 	static int  counter = 1;
 	cout << counter << endl;
@@ -110,6 +110,7 @@ void read::Call_Instructions(int pc)
 	 else if (action == "JALR") // to be adjusted 
 	{
 		x.jalr(v[1], v[2], v[3]);
+		cout << v[1] << v[2] << v[3] << endl;
 	}
 	else if (action == "BEQ")
 	{
@@ -242,7 +243,7 @@ void read::Call_Instructions(int pc)
 
 
 
-bool read::find_col(string s)
+bool Risc_v_Simulator::find_col(string s)
 {
 		for (int i = 0; i < s.length(); i++)
 		{
@@ -253,7 +254,7 @@ bool read::find_col(string s)
 		return 0;
 }
 
-void read::identify_inst(string inst,vector<string>&breakdown)
+void Risc_v_Simulator::identify_inst(string inst,vector<string>&breakdown)
 {
 	
 
@@ -324,7 +325,7 @@ void read::identify_inst(string inst,vector<string>&breakdown)
 	return;
 
 }
-void read::comma_1(string s,string action,int tag,vector<string>&breakdown)
+void Risc_v_Simulator::comma_1(string s,string action,int tag,vector<string>&breakdown)
 {
 	
 	if (tag) 
@@ -351,7 +352,7 @@ void read::comma_1(string s,string action,int tag,vector<string>&breakdown)
 		return;
 	
 }
-void read::comma_2(string s, string action, int tag, vector<string>& breakdown) 
+void Risc_v_Simulator::comma_2(string s, string action, int tag, vector<string>& breakdown)
 {
 	if (tag)
 	{
@@ -377,7 +378,7 @@ void read::comma_2(string s, string action, int tag, vector<string>& breakdown)
 	return; 
 
 }
-string read::removespaces(string s)
+string Risc_v_Simulator::removespaces(string s)
 {
 	string temp = "";
 		for (int i = 0; i < s.length(); i++) {
@@ -389,7 +390,7 @@ string read::removespaces(string s)
 		return temp;
 	
 }
-int read::commaNum(string s) 
+int Risc_v_Simulator::commaNum(string s)
 {
 	int c = 0;
 	for (int i = 0; i < s.length(); i++)

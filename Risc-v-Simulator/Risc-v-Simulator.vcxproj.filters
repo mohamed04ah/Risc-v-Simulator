@@ -24,7 +24,7 @@
     <ClInclude Include="LS_instructions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="read.h">
+    <ClInclude Include="Risc_v_Simulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="global.h">
@@ -44,7 +44,7 @@
     <ClCompile Include="LS_instructions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="read.cpp">
+    <ClCompile Include="Risc_v_Simulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="global.cpp">

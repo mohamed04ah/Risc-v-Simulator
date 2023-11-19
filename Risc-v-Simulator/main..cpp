@@ -40,7 +40,9 @@ int Bintoint1(string value) {
 }
 int main() {
 
-     read r; 
+	Risc_v_Simulator r;
+	LS_instructions x; 
+	
 	
 	 
 //cout<<	 Bintoint1(bitset<32>(0).to_string());

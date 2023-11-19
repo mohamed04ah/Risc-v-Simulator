@@ -5,7 +5,7 @@
 #include<bitset>
 #include"RegisterFile.h"
 #include"Memory.h"
-#include "read.h"
+#include "Risc_v_Simulator.h"
 #include"global.h"
 using namespace std;
 class LS_instructions
@@ -28,20 +28,20 @@ public:
 	void addi(string dest, string r1, string r2);//tested
 	void sub (string dest, string r1, string r2);//tested
 	void slt(string dest, string r1, string r2);//tested
-	void slti(string dest, string r1, string r2);
-	void sltu(string dest, string r1, string r2);
-	void sltiu(string dest, string r1, string r2);
-	void jal(string ra, string label);
-	void jalr(string dest, string r1, string offset);
-	void blt(string r1, string r2, string label);
-	void bltu(string r1, string r2, string label);
-	void bgt(string r1, string r2, string label);
-	void bgtu(string r1, string r2, string label);
-	void And(string dest, string r1, string r2);
-	void Andi(string dest, string r1, string imm);
+	void slti(string dest, string r1, string r2); //tested
+	void sltu(string dest, string r1, string r2); //tested
+	void sltiu(string dest, string r1, string r2); //tested
+	void jal(string ra, string label); //tested
+	void jalr(string dest, string offset, string r1); //tested 
+	void blt(string r1, string r2, string label);/// tested
+	void bltu(string r1, string r2, string label);//tested
+	void bgt(string r1, string r2, string label);//tested
+	void bgtu(string r1, string r2, string label);//tested
+	void And(string dest, string r1, string r2); //tested
+	void Andi(string dest, string r1, string imm); //tested
 	void Or(string dest, string r1, string r2);
 	void ori(string dest, string r1, string imm);
-	void Xor(string dest, string r1, string r2);
+	void Xor(string dest, string r1, string r2); //tested
 	void xori(string dest, string r1, string imm);
 	void sll(string dest, string r1, string shift);
 	void slli(string dest, string r1, string imm); //tested

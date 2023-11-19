@@ -1,6 +1,8 @@
 8500
-ADDI t0,t0,4000
-LW a1,20,t0
-SW a1,0(t0)
-LH t5,4(t0)
-FENCE
+ADDI t0,t0,5678
+ADDI t1,zero,9821
+AND s0,t0,t1
+ANDI s1,t1,1567
+XOR s1,s1,s0
+label: ADD a0,t0,t0
+FENCE 
