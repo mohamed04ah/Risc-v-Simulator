@@ -54,5 +54,7 @@
   <ItemGroup>
     <Text Include="input.txt" />
     <Text Include="memory.txt" />
+    <Text Include="input1.txt" />
+    <Text Include="input2.txt" />
   </ItemGroup>
 </Project>

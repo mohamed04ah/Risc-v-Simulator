@@ -378,9 +378,6 @@ void  LS_instructions::add(string dest, string r1, string r2) {
 	int res = 0;
 	int x1 = Bintoint(RegisterFile::read(r1)), x2 = Bintoint(RegisterFile::read(r2));
 	res = x1 + x2;
-	cout<<r2<<r2.size()<<endl;
-	cout << "reading r1" << " " << RegisterFile::read(r1) << endl;
-	cout << "reading r2" << " " << RegisterFile::read(r2) << endl;
 	RegisterFile::write(dest, to_string(res));
 	PC += 4;
 }
@@ -388,8 +385,6 @@ void  LS_instructions::add(string dest, string r1, string r2) {
 void  LS_instructions::addi(string dest, string r1, string r2) {
 	int res = 0;
 	int x1 = Bintoint(RegisterFile::read(r1)), x2 = stoi(r2);
-	cout << RegisterFile::read(r1);
-	cout << "x1 is" << x1 << endl;
 	res = x1 + x2;
 	RegisterFile::write(dest, to_string(res));
 	PC += 4;
@@ -592,15 +587,25 @@ void LS_instructions::xori(string dest, string r1, string imm)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
 	int x2 = stoi(imm);
-	int result = x1 ^ x2;
+	int result;
+	if (x2 == -1) {
+		result = ~x1;
+	}
+	else 
+	{
+		int result = x1 ^ x2;
+	}
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
 }
 void LS_instructions::sll(string dest, string r1, string shift)
 {
+	cout << "from sll func" << endl;
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int shiftAmount = Bintoint(shift);
+	int shiftAmount =Bintoint( RegisterFile::read(shift));
+	cout << shiftAmount << endl;
 	int result = x1 << shiftAmount;
+	cout << "the result is" << result << endl;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
 }
@@ -615,7 +620,7 @@ void  LS_instructions::slli(string dest, string r1, string imm)
 void  LS_instructions::srl(string dest, string r1, string shift)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int shiftAmount = Bintoint(shift);
+	int shiftAmount = Bintoint(RegisterFile::read(shift));
 	int result = x1 >> shiftAmount;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
@@ -631,7 +636,7 @@ void  LS_instructions::srli(string dest, string r1, string imm)
 void  LS_instructions::sra(string dest, string r1, string shift)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
-	int shiftAmount = Bintoint(shift);
+	int shiftAmount = Bintoint(RegisterFile::read(shift));
 	int result = x1 >> shiftAmount;
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;

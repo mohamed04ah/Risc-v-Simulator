@@ -1,0 +1,18 @@
+1234
+ADDI t3,zero,1987
+ADD t4,t3,t3
+ADDI s0,s0,4000
+JAL ra,label1
+XORI t1,t3,-1
+ORI  t2,t1,1
+SRLI a1,t2,2
+LUI a2,157
+SRAI a2,a2,1
+FENCE
+l1: BLT zero,t3,l2
+FENCE
+l2: ADDI a4,a4,-6
+ADDI a6,a6,-2
+BLTU a6,a4,l3
+EBREAK
+label1:JALR zero,0(ra)

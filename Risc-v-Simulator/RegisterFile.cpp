@@ -1,5 +1,5 @@
 #include "RegisterFile.h"
-
+#include<sstream>
 RegisterFile& RegisterFile::getinstance()
 {
 	static RegisterFile RF;
@@ -142,11 +142,12 @@ string decimal_hexa(string value)
 {
 
 
-	int val = stoi(value);
+	/*int val = stoi(value);
 	if (val == 0) {
 		return "0";
 	}
 
+	
 	string result = "";
 	int i = 0;
 	while (val > 0) {
@@ -164,7 +165,12 @@ string decimal_hexa(string value)
 		size--;
 	}
 
-	return result;
+	return result;*/
+
+	int n = stoi(value);
+	stringstream hex_val;
+	hex_val << hex << n;
+	return hex_val.str();
 }
 void RegisterFile::Iprint_RF()
 {

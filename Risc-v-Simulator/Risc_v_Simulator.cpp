@@ -2,18 +2,37 @@
 
 Risc_v_Simulator::Risc_v_Simulator()
 {
-	read_instructions();
+	int choice;
+	string file;
+	cout << "Select the test case you would like to run:" << endl << "1" << endl << "2" << endl << "3" << endl;
+	cout << "enter your choice:" << endl;
+	cin >> choice;
+	switch (choice)
+	{
+	case 1: 
+		file = "input.txt";
+			break;
+	case 2: 
+		file = "input1.txt";
+		break;
+	case 3: 
+		file = "input2.txt";
+		break;
+	  
+	}
+	
+	read_instructions(file);
 	
 	Call_Instructions(PC);
 	
 }
 
-void Risc_v_Simulator::read_instructions()
+void Risc_v_Simulator::read_instructions(string file)
 {
 	Memory& Mem = Memory::getinstance();
 	int counter = 0;
 	int location = 0;
-	string filename = "input.txt"; 
+	string filename = file; 
 	ifstream inputfile(filename);
 	vector<string> instructions;
 	if (inputfile.is_open())
@@ -75,14 +94,17 @@ void Risc_v_Simulator::read_instructions()
 
 void Risc_v_Simulator::Call_Instructions(int pc)
 {
-	static int  counter = 1;
-	cout << counter << endl;
-	cout << PC << endl;
+	
+	cout << "PC value: "<<PC << endl;
 	vector<string> v;
 	identify_inst(removespaces(Memory::read(to_string(pc))), v);
 	string action = v[0];
 	if (action == "ECALL" || action == "EBREAK" || action == "FENCE")
-		return; 
+	{
+		
+		exit(1);
+	}
+	
 	 static LS_instructions x;
 
 	if (action == "ADD")
@@ -235,7 +257,7 @@ void Risc_v_Simulator::Call_Instructions(int pc)
 		}
 
 	Print_all();
-	counter++;
+	
 	
 	Call_Instructions(PC);
 

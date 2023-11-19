@@ -1,0 +1,21 @@
+4535
+ADDI t0,t0,4000
+LH   t2,4(t0)
+LHU  t4,8(t0)
+LB   t3,8(t0)
+LBU  t4,8(t0)
+SB   t4,0(t0)
+SH  t0,0(t0)
+SLTI a1,zero,-1
+SLTIU a2,zero,-1
+SLL   a3,t2,a1
+SUB   a4,zero,t0
+ADDI  t0,zero,5
+ADDI  t1,zero,-5
+BGE t0,t1,l1
+SLL   a3,t2,a1
+l1: BGEU t0,t0,l2
+ADDI t0,t0,t0
+l2: BNE zero,t1,l3
+ADDI t0,t0,t0
+l3: ECALL

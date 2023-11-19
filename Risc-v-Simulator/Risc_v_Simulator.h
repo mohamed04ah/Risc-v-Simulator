@@ -11,7 +11,7 @@ class Risc_v_Simulator
 {
 	public: 
 	Risc_v_Simulator();
-	void read_instructions();
+	void read_instructions(string file);
 	void Call_Instructions(int pc);
 	bool find_col(string s);
 	void identify_inst(string inst,vector<string>& breakdown);
@@ -22,10 +22,10 @@ class Risc_v_Simulator
 	
 	void Print_all() 
 	{
-		cout << "PC|RegisterFile|Memory" << endl;
-		Memory::print_memory();
+		cout <<" RegisterFile | Memory" << endl;
+		RegisterFile::print_RF();
 		cout << endl;
-	     RegisterFile::print_RF();
+		 Memory::print_memory();
 	cout << endl; 
 	
 	}

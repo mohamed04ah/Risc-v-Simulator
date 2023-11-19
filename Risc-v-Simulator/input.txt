@@ -1,8 +1,21 @@
-8500
-ADDI t0,t0,5678
-ADDI t1,zero,9821
-AND s0,t0,t1
-ANDI s1,t1,1567
-XOR s1,s1,s0
-label: ADD a0,t0,t0
-FENCE 
+2000
+ADDI s0,s0,4000
+ADDI s1,s1,8000
+ADD t0, s0, zero
+ADDI t1, zero, 9
+SLLI t1, t1, 2
+ADD t1, t1, s1
+L1: LW t2, 0(t0)
+SW t2, 0(t1)
+ADDI t0, t0, 4
+ADDI t1, t1, -4
+SLT t3, t1, s1
+BEQ t3, zero, L1
+SLTU a1,zero,s1
+XOR  a2,s0,s1
+SRL  a3,a2,a1
+OR   t5,s0,s1
+ANDI t5,t5,1
+AND  a2,a2,t1
+SRA  s0,s0,t3
+EBREAK
