@@ -1,0 +1,15 @@
+2600
+JAL ra,l1
+ADDI t0,t0,-1
+BNE  t0,zero,l2
+ADDI t3,t3,15
+l2: BLT t0,zero,l3
+ADDI t3,t3,15
+l3: BGE zero,t0,l4
+ADDI t3,t3,15
+l4:BGEU t0,zero,l5
+ADDI t3,t3,15
+l5:BLTU zero,t0,l6
+ADDI t3,t3,15
+l1: JALR zero,0(ra)
+l6:FENCE

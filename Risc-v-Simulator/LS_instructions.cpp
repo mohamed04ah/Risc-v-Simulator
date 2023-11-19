@@ -450,11 +450,10 @@ void  LS_instructions::sltiu(string dest, string r1, string r2) {
 	return;
 }
 
-void  LS_instructions::jal(string ra, string label) 
+void  LS_instructions::jal(string ra, string label)
 {
-		RegisterFile::write(ra, to_string(PC+4));
-		PC = stoi((Memory::read_label(label)));
-		cout << "wrote to ra" << RegisterFile::read(ra) << endl;
+	RegisterFile::write(ra, to_string(PC + 4));
+	PC = stoi((Memory::read_label(label)));
 }
 
 
@@ -587,25 +586,25 @@ void LS_instructions::xori(string dest, string r1, string imm)
 {
 	int x1 = Bintoint(RegisterFile::read(r1));
 	int x2 = stoi(imm);
-	int result;
+	int result = 0;
 	if (x2 == -1) {
 		result = ~x1;
 	}
 	else 
 	{
-		int result = x1 ^ x2;
+		 result = x1 ^ x2;
 	}
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
 }
 void LS_instructions::sll(string dest, string r1, string shift)
 {
-	cout << "from sll func" << endl;
+	
 	int x1 = Bintoint(RegisterFile::read(r1));
 	int shiftAmount =Bintoint( RegisterFile::read(shift));
-	cout << shiftAmount << endl;
+	
 	int result = x1 << shiftAmount;
-	cout << "the result is" << result << endl;
+	
 	RegisterFile::write(dest, to_string(result));
 	PC += 4;
 }
@@ -652,7 +651,7 @@ void  LS_instructions::srai(string dest, string r1, string imm)
 
 void  LS_instructions::jalr(string dest, string offset, string r1)
 { 
-	cout << "recieved" << dest << offset << r1 << endl;
+
 	if (dest == "zero") 
 	{
 		PC = Bintoint(RegisterFile::read(r1));

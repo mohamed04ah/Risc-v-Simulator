@@ -4,7 +4,7 @@ Risc_v_Simulator::Risc_v_Simulator()
 {
 	int choice;
 	string file;
-	cout << "Select the test case you would like to run:" << endl << "1" << endl << "2" << endl << "3" << endl;
+	cout << "Select the test case you would like to run:" << endl << "1" << endl << "2" << endl << "3"<< endl<<"4" << endl;
 	cout << "enter your choice:" << endl;
 	cin >> choice;
 	switch (choice)
@@ -18,7 +18,10 @@ Risc_v_Simulator::Risc_v_Simulator()
 	case 3: 
 		file = "input2.txt";
 		break;
-	  
+	case 4: 
+
+		file = "input3.txt";
+		break;
 	}
 	
 	read_instructions(file);

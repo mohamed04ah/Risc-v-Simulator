@@ -1,21 +1,22 @@
 4535
-ADDI t0,t0,4000
-LH   t2,4(t0)
-LHU  t4,8(t0)
-LB   t3,8(t0)
-LBU  t4,8(t0)
-SB   t4,0(t0)
-SH  t0,0(t0)
-SLTI a1,zero,-1
-SLTIU a2,zero,-1
-SLL   a3,t2,a1
-SUB   a4,zero,t0
-ADDI  t0,zero,5
-ADDI  t1,zero,-5
-BGE t0,t1,l1
-SLL   a3,t2,a1
-l1: BGEU t0,t0,l2
-ADDI t0,t0,t0
-l2: BNE zero,t1,l3
-ADDI t0,t0,t0
-l3: ECALL
+ADDI s0,zero,198
+ADDI s1,zero,187
+AND  s2,s0,s1
+ANDI s3,s2,766
+XOR  s4,s3,s2
+XORI s5,s4,654
+OR   s6,s5,s4
+ORI  t0,s3,1234
+ADDI t1,zero,1
+SRL  t3,t0,t1
+SRLI  t2,t1,1
+ADDI a0,a0,-12
+SRA a1,a0,t1
+SLL a2,a1,t1
+ADDI t0,zero,12
+SLT  t1,a0,t0
+SLTU t1,a0,t0
+SLTI t1,a0,-14
+SLTIU t1,a0,-14
+SRAI  t1,s1,1
+FENCE
